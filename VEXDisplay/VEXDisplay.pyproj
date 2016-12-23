@@ -22,7 +22,156 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\App.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Colors.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\data\match.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\data\skills.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\data\team.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\data\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\AppScreen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\drawables\header.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\drawables\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\EventData.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\panels\ConfigureDisplay.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\panels\InspectionsPanel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\panels\MainScreen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\panels\RanksPanel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\panels\TeamInspectionPanel_Small.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\panels\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Settings.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="VEXDisplay.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
+    <Folder Include="Classes\data\" />
+    <Folder Include="Classes\drawables\" />
+    <Folder Include="Classes\panels\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Fonts\" />
+    <Folder Include="Resources\Fonts\Liberation\" />
+    <Folder Include="Resources\Fonts\NotoSans\" />
+    <Folder Include="Resources\Images\" />
+    <Folder Include="Resources\Images\Logos\" />
+    <Folder Include="Resources\Images\Display\" />
+    <Folder Include="Resources\Images\Logos\Medium\" />
+    <Folder Include="Resources\Images\Logos\Large\" />
+    <Folder Include="Resources\Images\Logos\Small\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Fonts\Liberation\AUTHORS" />
+    <Content Include="Resources\Fonts\Liberation\ChangeLog" />
+    <Content Include="Resources\Fonts\Liberation\COPYING" />
+    <Content Include="Resources\Fonts\Liberation\LiberationMono-Bold.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationMono-BoldItalic.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationMono-Italic.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationMono-Regular.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSans-Bold.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSans-BoldItalic.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSans-Italic.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSans-Regular.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSansNarrow-Bold.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSansNarrow-BoldItalic.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSansNarrow-Italic.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSansNarrow-Regular.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSerif-Bold.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSerif-BoldItalic.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSerif-Italic.ttf" />
+    <Content Include="Resources\Fonts\Liberation\LiberationSerif-Regular.ttf" />
+    <Content Include="Resources\Fonts\Liberation\License.txt" />
+    <Content Include="Resources\Fonts\NotoSans\LICENSE_OFL.txt" />
+    <Content Include="Resources\Fonts\NotoSans\NotoSans-Bold.ttf" />
+    <Content Include="Resources\Fonts\NotoSans\NotoSans-BoldItalic.ttf" />
+    <Content Include="Resources\Fonts\NotoSans\NotoSans-Italic.ttf" />
+    <Content Include="Resources\Fonts\NotoSans\NotoSans-Regular.ttf" />
+    <Content Include="Resources\Images\Display\gear_pattern_awards_bottom_16x9.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_awards_bottom_4x3.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_awards_corner_16x9.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_awards_corner_4x3.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_bottom_16x9.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_bottom_4x3.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_left_16x9.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_left_4x3.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_right_16x9.png" />
+    <Content Include="Resources\Images\Display\gear_pattern_right_4x3.png" />
+    <Content Include="Resources\Images\Display\vexu_logo_match_titlebar.png" />
+    <Content Include="Resources\Images\Display\vexu_logo_titlebar.png" />
+    <Content Include="Resources\Images\Display\viq_logo_match_titlebar.png" />
+    <Content Include="Resources\Images\Display\viq_logo_titlebar.png" />
+    <Content Include="Resources\Images\Display\vrc_logo_match_titlebar.png" />
+    <Content Include="Resources\Images\Display\vrc_logo_titlebar.png" />
+    <Content Include="Resources\Images\Display\worlds_logo_titlebar.png" />
+    <Content Include="Resources\Images\Logos\Large\1-VIQCLogo.png" />
+    <Content Include="Resources\Images\Logos\Large\1-VRCLogo.png" />
+    <Content Include="Resources\Images\Logos\Large\2-NASALarge.png" />
+    <Content Include="Resources\Images\Logos\Large\3-AutodeskLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\4-RECFLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\5-NorthropGrummanFoundationLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\6-EMCLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\7-ChevronLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\8-TexasInstrumentsLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\9-IFIInternationalLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\A-MicrochipLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\B-HarrisLarge.png" />
+    <Content Include="Resources\Images\Logos\Large\Y1-Scholarship1.png" />
+    <Content Include="Resources\Images\Logos\Large\Y2-Scholarship2.png" />
+    <Content Include="Resources\Images\Logos\Large\Z-Volunteer.png" />
+    <Content Include="Resources\Images\Logos\Medium\AutodeskMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\ChevronMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\EMCMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\HarrisMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\IFIInternationalMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\MicrochipMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\NASAMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\NorthropGrummanFoundationMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\RECFMedium.png" />
+    <Content Include="Resources\Images\Logos\Medium\TexasInstrumentsMedium.png" />
+    <Content Include="Resources\Images\Logos\Small\AutodeskSmall.png" />
+    <Content Include="Resources\Images\Logos\Small\ChevronSmall.png" />
+    <Content Include="Resources\Images\Logos\Small\EMCSmall.png" />
+    <Content Include="Resources\Images\Logos\Small\HarrisSmall.png" />
+    <Content Include="Resources\Images\Logos\Small\IFIInternationalSmall.png" />
+    <Content Include="Resources\Images\Logos\Small\MicrochipSmall.png" />
+    <Content Include="Resources\Images\Logos\Small\NASASmall.png" />
+    <Content Include="Resources\Images\Logos\Small\NorthropGrummanFoundationSmall.png" />
+    <Content Include="Resources\Images\Logos\Small\RECFSmall.png" />
+    <Content Include="Resources\Images\Logos\Small\TexasInstrumentsSmall.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
