@@ -8,6 +8,11 @@ class Settings(object):
         self.secondaryDisplay = "Matches"
         self.displayDivision = "Division 1"
         self.showInspections = False
+        self.scrollSpeed = 270
+    def getScrollSpeed(self):
+        return self.scrollSpeed
+    def setScrollSpeed(self,val):
+        self.scrollSpeed = val
     def getServerAddress(self):
         return self.serverAddress
     def setServerAddress(self,val):

@@ -81,6 +81,7 @@ class AppScreen(wx.Frame):
         self.app.settings.setSecondDisplay(self.ConfigPanel.CmbxSecondDisplay.GetValue())
         self.app.settings.setDisplayDivision(self.ConfigPanel.CmbxDivision.GetValue())
         self.app.settings.setShowInspections(self.ConfigPanel.ChkbxAutoShowInspections.GetValue())
+        self.app.settings.setScrollSpeed(self.ConfigPanel.scrollSpeed.GetValue())
         self.SetSize((1920,1080))
         self.SetPosition((0,0))
         self.ShowFullScreen(True)
@@ -102,5 +103,5 @@ class AppScreen(wx.Frame):
         self.app.beginCollectData()
         self.dataUpdateTimer.Start(self.app.settings.getDataUpdateFreq()*1000)
         self.MainDisplayScreen = MainScreen(self)
-        self.MainDisplayScreen.onReady(self.app.settings.getMainDisplay(),self.app.settings.getSecondDisplay(),self.app.settings.getShowInspections())
+        self.MainDisplayScreen.onReady(self.app.settings.getMainDisplay(),self.app.settings.getSecondDisplay(),self.app.settings.getShowInspections(),self.app.settings.getScrollSpeed())
         

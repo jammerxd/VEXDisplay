@@ -6,6 +6,8 @@ import threading
 import time
 import wx
 from data import *
+from threading import Thread
+
 class App(object):
     global EVENT_DATA
     def __init__(self,inspectionCompleteCallback = None):
@@ -14,6 +16,7 @@ class App(object):
         self.settings = Settings()
         self.lastRun = time.time()
         self.inspectionCompleteCallback = inspectionCompleteCallback
+        self.thread = None
     def getEventName(self):
         try:
             response = EVENT_DATA.getRequest(self.settings.getServerAddress() + "/eventName")
@@ -80,8 +83,10 @@ class App(object):
     def getDivisionMatches(self):
         try:
             response = EVENT_DATA.getRequest(self.settings.getServerAddress() + "/" + self.settings.getDivisionStr() + "/matches")
-            jsonObj = json.loads(response)["matches"]
-            for obj in jsonObj:
+            jsonObj = json.loads(response)
+            EVENT_DATA.allMatchesScored = jsonObj["allMatchesScored"]
+            
+            for obj in jsonObj["matches"]:
                 matchNum = obj["match"]
                 if matchNum not in EVENT_DATA.matches:
                     EVENT_DATA.matches[matchNum] = Match()
@@ -118,6 +123,9 @@ class App(object):
                 EVENT_DATA.matches[matchNum].setBlueFarCubes(obj["blueFarCubes"])
                 EVENT_DATA.matches[matchNum].setField(obj["field"])
                 EVENT_DATA.matches[matchNum].setRound(obj["round"])
+            for i in range(0,8):
+                if i < len(jsonObj["show"]):
+                    EVENT_DATA.showMatches[i] = jsonObj["show"][i]
         except Exception,ex:
             doNothing = True
     def getSkills(self):
@@ -170,6 +178,14 @@ class App(object):
         except Exception,ex:
             doNothing = True
     def collectData(self,evt):
+        self.thread = threading.Thread(target=self.DocollectData)
+        self.thread.setDaemon(True)
+        self.thread.start()
+
+        
+
+    def DocollectData(self,x=None):
+        print "Collecting data"
         if (self.doUpdateData):
             self.getEventName()
         if (self.doUpdateData):

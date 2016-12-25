@@ -6,6 +6,7 @@ from InspectionsPanel import *
 from ..data import *
 from ..EventData import *
 from ..drawables import *
+from MatchesPanel import *
 class MainScreen(wx.Panel):
     def __init__(self,parent):
         wx.Panel.__init__(self,parent)
@@ -28,12 +29,13 @@ class MainScreen(wx.Panel):
 
         self.inspectionsToMatchTimer = None
         
+        genFonts()
         #self.SetBackgroundColour(COLORS["Black"])
-    def onReady(self,mainPanel = "Rankings", secondPanel = "Matches", showInspections=False):
+    def onReady(self,mainPanel = "Rankings", secondPanel = "Matches", showInspections=False,scrollSpeed=270):
         self.mainPanelType = mainPanel
         self.secondPanelType = secondPanel
         self.showInspections = showInspections
-
+        self.scrollSpeed = scrollSpeed
 
         ###SETUP FONTS AND HEADERS###
         if os.name == 'nt':
@@ -51,6 +53,8 @@ class MainScreen(wx.Panel):
         
         self.mainPanelHeader = Header(self,-1,"Qualification Rankings",self.Font_NotoSans_55_Bold,COLORS["White"])
         self.mainPanelHeader.SetSize((830,150))
+
+        
         #Check if inspections are needed
         if self.showInspections:
             self.secondPanel = None
@@ -68,6 +72,7 @@ class MainScreen(wx.Panel):
             #self.mainPanel.SetDoubleBuffered(True)
         else:
             self.setupMainPanel()
+            self.setupSecondPanel()
         #########
 
 
@@ -81,20 +86,27 @@ class MainScreen(wx.Panel):
             self.secondPanel.Show()
     def setupMainPanel(self):
         if self.mainPanelType == "Rankings":
-            self.mainPanel = RanksPanel(self)
+            self.mainPanel = RanksPanel(self,speed=self.scrollSpeed)
             self.mainPanelHeader.SetLabel("Qualification Rankings")
             self.mainPanelHeader.SetSize((1200,self.mainPanelHeader.GetSize()[1]))
             self.mainPanel.SetSize((1300,900))
-            self.mainPanel.SetPosition((25,155))
+            self.mainPanel.SetPosition((25,160))
             self.mainPanel.SetBackgroundColour(COLORS["vexBlue"])
+    
     def setupSecondPanel(self):
         if self.secondPanelType == "Matches":
-            self.secondPanel = None
+            self.secondPanelHeader = Header(self,-1,"Match Schedule and Results",self.Font_NotoSans_22_Bold,COLORS["White"])
+            self.secondPanelHeader.SetPosition((1350+(545-self.secondPanelHeader.GetSize()[0])/2,212))
+            self.secondPanel = MatchesPanel(self)
+            self.secondPanel.SetBackgroundColour(COLORS["White"])
+            self.secondPanel.Refresh()
+            if not self.secondPanel.IsShown():
+                self.secondPanel.Show()
     def checkInspectionData(self,evt):
         switchMain = False
         if self.mainPanel != None and self.showInspections:
-            #if len(EVENT_DATA.matches) > 0:
-            if EVENT_DATA.inspections_t == EVENT_DATA.inspections_c:
+            if len(EVENT_DATA.matches) > 0:
+            #if EVENT_DATA.inspections_t == EVENT_DATA.inspections_c:
                 self.mainPanel.Hide()
                 self.mainPanel.DestroyChildren()
                 self.mainPanel.Destroy()
@@ -108,5 +120,8 @@ class MainScreen(wx.Panel):
                 self.inspectionsToMatchTimer.Stop()
             self.setupMainPanel()
             self.setupSecondPanel()
+            self.SetBackgroundColour(COLORS["vexRed"])
+            self.Refresh()
+            
         if evt != None:
             evt.Skip()

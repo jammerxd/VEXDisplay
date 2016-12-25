@@ -43,7 +43,13 @@
     <Compile Include="Classes\AppScreen.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\drawables\fonts.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classes\drawables\header.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\panels\rankLogoPanel_Main.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\drawables\__init__.py">
@@ -61,10 +67,16 @@
     <Compile Include="Classes\panels\MainScreen.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\panels\MatchesPanel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classes\panels\RanksPanel.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\panels\TeamInspectionPanel_Small.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\panels\TeamRankPanel_Main.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\panels\__init__.py">
@@ -83,6 +95,7 @@
     <Folder Include="Classes\data\" />
     <Folder Include="Classes\drawables\" />
     <Folder Include="Classes\panels\" />
+    <Folder Include="Sponsors\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\Fonts\" />
     <Folder Include="Resources\Fonts\Liberation\" />

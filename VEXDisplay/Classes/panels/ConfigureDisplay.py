@@ -104,6 +104,28 @@ class ConfigureDisplay(wx.Panel):
         self.ChkbxAutoShowInspections.SetFont(self.NotoSansRegular)
         #self.ChkbxAutoShowInspections.SetSize((self.ChkbxAutoShowInspections.GetSize()[0]+15,self.ChkbxAutoShowInspections.GetSize()[1]+15))
         
+        
+
+
+
+        self.settings_lbl_ScrollSpeed = wx.StaticText(self,-1)
+        self.settings_lbl_ScrollSpeed.SetFont(self.NotoSansRegular)
+        self.settings_lbl_ScrollSpeed.SetLabel("Scroll Speed(FPS): ")
+        self.settings_lbl_ScrollSpeed.SetPosition((20,322))   
+        
+        self.scrollSpeed = wx.SpinCtrl(self, -1, '',  (self.settings_lbl_ScrollSpeed.GetPosition()[0]+self.settings_lbl_ScrollSpeed.GetSize()[0]+5, 321), (80, -1))
+        self.scrollSpeed.SetFont(self.NotoSansRegular)
+        self.scrollSpeed.SetRange(1,999)
+        self.scrollSpeed.SetValue(270)
+        self.scrollSpeed.SetSize((self.scrollSpeed.GetSize()[0],self.scrollSpeed.GetSize()[1]+5))
+ 
+
+
+
+
+
+
+
         self.BtnGo = wx.Button(self,label="GO!",pos=(10,325), size=(120,75))
         self.BtnGo.SetFont(self.NotoSansRegular)
         x = (self.GetSize()[0] - self.BtnGo.GetSize()[0])/2

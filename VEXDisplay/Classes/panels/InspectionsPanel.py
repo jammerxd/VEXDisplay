@@ -12,7 +12,7 @@ class InspectionsPanel(wx.Panel):
         self.SetSize((1920,900))
         self.SetPosition((0,180))
         #self.SetBackgroundStyle(wx.BG_STYLE_CUSTOM)
-        #self.SetBackgroundColour(COLORS["vexTxtDarkGray"])
+        self.SetBackgroundColour(COLORS["vexTxtDarkGray"])
         #self.Bind(wx.EVT_ERASE_BACKGROUND,self.drawBG)
         #self.SetDoubleBuffered(True)
         self.redrawTimer = wx.Timer(self,-1)
@@ -32,15 +32,24 @@ class InspectionsPanel(wx.Panel):
         
         self.lblSummary = TeamInspectionPanel(self)
         self.lblSummary.SetDoubleBuffered(True)
-        self.lblSummary.lblTeamNumber = wx.StaticText(self.lblSummary,-1,style=wx.ALIGN_CENTER | wx.ST_NO_AUTORESIZE)
+        if not os.name.find("posix") > -1:
+            self.lblSummary.lblTeamNumber = wx.StaticText(self.lblSummary,-1,style=wx.ALIGN_CENTER | wx.ST_NO_AUTORESIZE)
+        else:
+            self.lblSummary.lblTeamNumber = wx.StaticText(self.lblSummary,-1)
         self.lblSummary.lblTeamNumber.SetFont(self.NotoSansBold)
         self.lblSummary.lblTeamNumber.SetForegroundColour(COLORS["vexTxtGray"])
         self.lblSummary.lblTeamNumber.SetBackgroundColour(COLORS["White"])
-        self.lblSummary.lblTeamNumber.SetSize((1574,50))
+        if not os.name.find("posix") > -1:
+            self.lblSummary.lblTeamNumber.SetSize((1574,50))
         self.lblSummary.SetSize((1574,50))
         self.lblSummary.SetBackgroundColour(COLORS["White"])
         self.lblSummary.lblTeamNumber.SetLabel("Inspection Summary  -  Not Started:  " + str(EVENT_DATA.inspections_ns) + "      Partial:  " + str(EVENT_DATA.inspections_p) + "      Completed:  " + str(EVENT_DATA.inspections_c))
-        self.lblSummary.SetPosition((((1920-self.lblSummary.GetSize()[0])/2)-13,2))
+        
+        if os.name.find("posix") > -1:
+            self.lblSummary.SetPosition((((1920-self.lblSummary.GetSize()[0])/2)-13,2))
+            self.lblSummary.lblTeamNumber.SetPosition(((self.lblSummary.GetSize()[0]-self.lblSummary.lblTeamNumber.GetSize()[0])/2,-5))
+        else:
+            self.lblSummary.SetPosition((((1920-self.lblSummary.GetSize()[0])/2)-13,2))
         self.xOff = 50
 
         self.teamLblHandler = {}
@@ -50,10 +59,18 @@ class InspectionsPanel(wx.Panel):
         
         self.isGrayRow = False
         self.teamLblOffsetY = 80+(90*((8 - int(math.ceil((260*len(EVENT_DATA.teams)) / 1800)))//2))
+        
+        if self.teamLblOffsetY > 260:
+            self.teamLblOffsetY = 260
+        self.origYOff = self.teamLblOffsetY
+        self.lblSummary.SetPosition((((1920-self.lblSummary.GetSize()[0])/2)-13,self.origYOff-78))
         for team in EVENT_DATA.teams:
             self.teamLblHandler[team] = TeamInspectionPanel(self)
             self.teamLblHandler[team].SetDoubleBuffered(True)
-            self.teamLblHandler[team].lblTeamNumber = wx.StaticText(self.teamLblHandler[team],-1,style=wx.ALIGN_CENTER | wx.ST_NO_AUTORESIZE)
+            if not os.name.find("posix") > -1:
+                self.teamLblHandler[team].lblTeamNumber = wx.StaticText(self.teamLblHandler[team],-1,style=wx.ALIGN_CENTER | wx.ST_NO_AUTORESIZE)
+            else:
+                self.teamLblHandler[team].lblTeamNumber = wx.StaticText(self.teamLblHandler[team],-1)
             self.teamLblHandler[team].lblTeamNumber.SetFont(self.NotoSansRegular)
             if (EVENT_DATA.teams[team].getCheckedIn()):
                 if (EVENT_DATA.teams[team].getInspectionStatus() == "Not Started"):
@@ -69,8 +86,12 @@ class InspectionsPanel(wx.Panel):
                 self.teamLblHandler[team].lblTeamNumber.SetForegroundColour(COLORS["vexTxtGray"])
                 self.teamLblHandler[team].lblTeamNumber.SetFont(self.NotoSansRegularI)
             self.teamLblHandler[team].lblTeamNumber.SetLabel(team)
-            self.teamLblHandler[team].lblTeamNumber.SetSize((260,60))
-            self.teamLblHandler[team].lblTeamNumber.SetPosition((0,(self.teamLblHandler[team].GetSize()[1]-self.teamLblHandler[team].lblTeamNumber.GetSize()[1])/2))
+            if not os.name.find("posix") > -1:
+                self.teamLblHandler[team].lblTeamNumber.SetSize((260,60))
+                self.teamLblHandler[team].lblTeamNumber.SetPosition((0,(self.teamLblHandler[team].GetSize()[1]-self.teamLblHandler[team].lblTeamNumber.GetSize()[1])/2))
+            else:
+                self.teamLblHandler[team].lblTeamNumber.SetPosition(((self.teamLblHandler[team].GetSize()[0]-self.teamLblHandler[team].lblTeamNumber.GetSize()[0])/2,(self.teamLblHandler[team].GetSize()[1]-self.teamLblHandler[team].lblTeamNumber.GetSize()[1])/2))
+                
             self.teamLblHandler[team].SetPosition((self.teamLblOffsetX,self.teamLblOffsetY))
             if self.isGrayRow: 
                 self.teamLblHandler[team].SetBackgroundColour(COLORS["vexBGLightGray"])
@@ -104,7 +125,7 @@ class InspectionsPanel(wx.Panel):
     def onPaint(self,evt):
         dc = wx.ClientDC(self)
         dc.SetPen(wx.Pen(COLORS["vexTxtDarkGray"]))
-        dc.DrawRoundedRectangle(150,0,1600,60,8)
+        dc.DrawRoundedRectangle(150,self.origYOff-80,1600,60,8)
         evt.Skip()
     def redraw(self,evt=None):
         self.lblSummary.lblTeamNumber.SetLabel("Inspection Summary  -  Not Started:  " + str(EVENT_DATA.inspections_ns) + "      Partial:  " + str(EVENT_DATA.inspections_p) + "      Completed:  " + str(EVENT_DATA.inspections_c))
