@@ -63,71 +63,78 @@ class RanksPanel(wx.Panel):
         self.changeLogoTimer.Start(10000)
         #self.updatePositionsTimer.Start(500)
         #self.logoPanel = RankLogoPanel_Main(self,EVENT_DATA.sponsors[0])
-
+        wx.CallAfter(self.updatePositions)
                 
-    def updatePositions(self,evt):
+    def updatePositions(self,evt=None):
         cancel = False
-        for i in range(len(EVENT_DATA.ranks)):
-            if str(i+1) in self.rankPanels:
-                panelRef = self.rankPanels.items()[i][1]
-
-                if self.rankPanels[str(i+1)].GetPosition()[1] < (-1*self.rankPanels[str(i+1)].GetSize()[1]):
-                    newY = i*panelRef.GetSize()[1] + self.rankPanels[str(len(self.rankPanels))].GetPosition()[1] + self.rankPanels[str(len(self.rankPanels))].GetSize()[1]
-                    if self.logoPanel != None:
-                        newY += self.logoPanel.GetSize()[1]
-                    newY += len(self.extraPanels)*90
-                    panelRef.Move((0,newY-1),wx.SIZE_ALLOW_MINUS_ONE)
-                    #if panelRef.rank in EVENT_DATA.ranks:
-                    #    panelRef.updateLabelTexts()
-                    #else:
-                    if not panelRef.rank in EVENT_DATA.ranks:
-                        if (i+1) > 11:
-                            del self.rankPanels[panelRef.rank]
-                            panelRef.Destroy()
-                        else:
-                            panelRef.rank = None
-                            panelRef.updateLabelTexts()
-                else:
-                    panelRef.Move((0,panelRef.GetPosition()[1]-1),wx.SIZE_ALLOW_MINUS_ONE)
-            else:
-                cancel = True
-                break
-        if cancel == False:
-            for i in range(len(self.extraPanels)):
-                panelRef = self.extraPanels[str(i+1)]
-                if panelRef.GetPosition()[1] < (-1*panelRef.GetSize()[1]):
-                    newY = i*panelRef.GetSize()[1] + self.rankPanels[str(len(self.rankPanels))].GetPosition()[1] + self.rankPanels[str(len(self.rankPanels))].GetSize()[1]
-                    #if self.logoPanel != None:
-                    #    newY += self.logoPanel.GetSize()[1]
-                    #newY += len(self.extraPanels)*90
-                    panelRef.Move((0,newY),wx.SIZE_ALLOW_MINUS_ONE)
-                else:
-                    panelRef.Move((0,panelRef.GetPosition()[1]-1),wx.SIZE_ALLOW_MINUS_ONE)
-            if self.logoPanel != None:
-                if self.logoPanel.GetPosition()[1] < (-1*self.logoPanel.GetSize()[1]):
-                    newY = self.rankPanels[str(len(self.rankPanels))].GetPosition()[1] + self.rankPanels[str(len(self.rankPanels))].GetSize()[1] 
-                    newY += len(self.extraPanels)*90
-                    self.logoPanel.Move((0,newY),wx.SIZE_ALLOW_MINUS_ONE)
-                else:
-                    self.logoPanel.Move((0,self.logoPanel.GetPosition()[1]-1),wx.SIZE_ALLOW_MINUS_ONE)    
-        else:
-            self.updatePositionsTimer.Stop()
-            self.changeLogoTimer.Stop()
-            if self.logoPanel != None:
-                self.logoPanel.Destroy()
-                self.logoPanel = None
-            for panel in self.rankPanels:
-                self.rankPanels[panel].Destroy()
-            for panel in self.extraPanels:
-                self.extraPanels[panel].Destroy()
-            self.Unbind(wx.EVT_TIMER,self.changeLogoTimer,handler=self.updateRankSponsorLogo)
-            self.Unbind(wx.EVT_TIMER,self.updatePositionsTimer,handler=self.updatePositions)
+        try:
+            for i in range(len(EVENT_DATA.ranks)):
                 
-            self.rankPanels = OrderedDict()
-            self.extraPanels = OrderedDict()
-            self.setupRankPanels(redraw = True)
-        evt.Skip()
+                if str(i+1) in self.rankPanels:
+                    panelRef = self.rankPanels.items()[i][1]
 
+                    if self.rankPanels[str(i+1)].GetPosition()[1] < (-1*self.rankPanels[str(i+1)].GetSize()[1]):
+                        newY = i*panelRef.GetSize()[1] + self.rankPanels[str(len(self.rankPanels))].GetPosition()[1] + self.rankPanels[str(len(self.rankPanels))].GetSize()[1]
+                        if self.logoPanel != None:
+                            newY += self.logoPanel.GetSize()[1]
+                        newY += len(self.extraPanels)*90
+                        panelRef.Move((0,newY-1),wx.SIZE_ALLOW_MINUS_ONE)
+                        #if panelRef.rank in EVENT_DATA.ranks:
+                        #    panelRef.updateLabelTexts()
+                        #else:
+                        if not panelRef.rank in EVENT_DATA.ranks:
+                            if (i+1) > 11:
+                                del self.rankPanels[panelRef.rank]
+                                panelRef.Destroy()
+                            else:
+                                panelRef.rank = None
+                                panelRef.updateLabelTexts()
+                    else:
+                        panelRef.Move((0,panelRef.GetPosition()[1]-1),wx.SIZE_ALLOW_MINUS_ONE)
+                else:
+                    cancel = True
+                    break
+
+            if cancel == False:
+                for i in range(len(self.extraPanels)):
+                    panelRef = self.extraPanels[str(i+1)]
+                    if panelRef.GetPosition()[1] < (-1*panelRef.GetSize()[1]):
+                        newY = i*panelRef.GetSize()[1] + self.rankPanels[str(len(self.rankPanels))].GetPosition()[1] + self.rankPanels[str(len(self.rankPanels))].GetSize()[1]
+                        #if self.logoPanel != None:
+                        #    newY += self.logoPanel.GetSize()[1]
+                        #newY += len(self.extraPanels)*90
+                        panelRef.Move((0,newY),wx.SIZE_ALLOW_MINUS_ONE)
+                    else:
+                        panelRef.Move((0,panelRef.GetPosition()[1]-1),wx.SIZE_ALLOW_MINUS_ONE)
+                if self.logoPanel != None:
+                    if self.logoPanel.GetPosition()[1] < (-1*self.logoPanel.GetSize()[1]):
+                        newY = self.rankPanels[str(len(self.rankPanels))].GetPosition()[1] + self.rankPanels[str(len(self.rankPanels))].GetSize()[1] 
+                        newY += len(self.extraPanels)*90
+                        self.logoPanel.Move((0,newY),wx.SIZE_ALLOW_MINUS_ONE)
+                    else:
+                        self.logoPanel.Move((0,self.logoPanel.GetPosition()[1]-1),wx.SIZE_ALLOW_MINUS_ONE)    
+                #wx.CallLater(18,self.updatePositions)
+            else:
+                self.updatePositionsTimer.Stop()
+                self.changeLogoTimer.Stop()
+                if self.logoPanel != None:
+                    self.logoPanel.Destroy()
+                    self.logoPanel = None
+                for panel in self.rankPanels:
+                    self.rankPanels[panel].Destroy()
+                for panel in self.extraPanels:
+                    self.extraPanels[panel].Destroy()
+                self.Unbind(wx.EVT_TIMER,self.changeLogoTimer,handler=self.updateRankSponsorLogo)
+                self.Unbind(wx.EVT_TIMER,self.updatePositionsTimer,handler=self.updatePositions)
+                    
+                self.rankPanels = OrderedDict()
+                self.extraPanels = OrderedDict()
+                self.setupRankPanels(redraw = True)
+            if evt != None:
+                evt.Skip()
+        
+        except Exception, ex:
+            doNothing = True
     def updateRankSponsorLogo(self,evt):
         if self.curSponsorI != -1 and self.logoPanel != None:
             if self.curSponsorI == (len(EVENT_DATA.sponsors)-1):
