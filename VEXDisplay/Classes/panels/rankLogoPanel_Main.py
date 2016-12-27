@@ -17,8 +17,8 @@ class RankLogoPanel_Main(wx.Panel):
         self.img = wx.StaticBitmap(self,-1,wx.BitmapFromImage(self.wxImg))
         self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))
         #self.Bind(wx.EVT_PAINT,self.on_paint)
-        self.fadeTimer = wx.Timer(self,-1)
-        self.Bind(wx.EVT_TIMER,self.doFade,self.fadeTimer)
+        #self.fadeTimer = wx.Timer(self,-1)
+        #self.Bind(wx.EVT_TIMER,self.doFade,self.fadeTimer)
 
         self.use2 = True
 
