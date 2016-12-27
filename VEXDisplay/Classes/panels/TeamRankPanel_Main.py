@@ -35,5 +35,5 @@ class TeamRankPanel_Main(wx.Panel):
         if self.rank != None:
             d = True
         else:
-            d = False
+            d = True
     
