@@ -178,9 +178,13 @@ class App(object):
         except Exception,ex:
             doNothing = True
     def collectData(self,evt):
+        #if self.thread != None:
+        #    self.thread.join()
+        #    self.thread = None
         self.thread = threading.Thread(target=self.DocollectData)
         self.thread.setDaemon(True)
         self.thread.start()
+        evt.Skip()
 
         
 
