@@ -43,6 +43,9 @@ class App(object):
                         EVENT_DATA.ranks[rankStr] = ranksRaw[rankStr]
                     if ranksRaw[rankStr] in EVENT_DATA.teams:
                         EVENT_DATA.teams[ranksRaw[rankStr]].setRank(rankStr)
+                for i in range(len(EVENT_DATA.ranks)):
+                    if str(i+1) not in jsonObj:
+                        del EVENT_DATA.ranks[str(i+1)]
             except Exception,ex:
                 doNothing = True
         except Exception,ex:
