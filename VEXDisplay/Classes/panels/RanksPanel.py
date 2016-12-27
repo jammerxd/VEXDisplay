@@ -57,15 +57,15 @@ class RanksPanel(wx.Panel):
         self.positionY = self.yOff-90
         self.updatePositionsTimer = wx.Timer(self,-1)
         self.Bind(wx.EVT_TIMER,self.updatePositions,self.updatePositionsTimer)
-        self.updatePositionsTimer.Start(1000.0/speed)
+        #self.updatePositionsTimer.Start(1000.0/speed)
         self.changeLogoTimer =wx.Timer(self,-1)
         self.Bind(wx.EVT_TIMER,self.updateRankSponsorLogo,self.changeLogoTimer)
         self.changeLogoTimer.Start(10000)
         #self.updatePositionsTimer.Start(500)
         #self.logoPanel = RankLogoPanel_Main(self,EVENT_DATA.sponsors[0])
-
+        wx.CallAfter(self.updatePositions)
                 
-    def updatePositions(self,evt):
+    def updatePositions(self,evt=None):
         cancel = False
         for i in range(len(EVENT_DATA.ranks)):
             if str(i+1) in self.rankPanels:
@@ -110,6 +110,7 @@ class RanksPanel(wx.Panel):
                     self.logoPanel.Move((0,newY),wx.SIZE_ALLOW_MINUS_ONE)
                 else:
                     self.logoPanel.Move((0,self.logoPanel.GetPosition()[1]-1),wx.SIZE_ALLOW_MINUS_ONE)    
+            wx.CallLater(3,self.updatePositions)
         else:
             self.updatePositionsTimer.Stop()
             self.changeLogoTimer.Stop()
@@ -126,7 +127,9 @@ class RanksPanel(wx.Panel):
             self.rankPanels = OrderedDict()
             self.extraPanels = OrderedDict()
             self.setupRankPanels(redraw = True)
-        evt.Skip()
+        if evt != None:
+            evt.Skip()
+        
 
     def updateRankSponsorLogo(self,evt):
         if self.curSponsorI != -1 and self.logoPanel != None:

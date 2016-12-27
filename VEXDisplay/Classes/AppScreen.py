@@ -7,7 +7,8 @@ from Colors import *
 class AppScreen(wx.Frame):
     global COLORS
     def __init__(self):
-        wx.Frame.__init__(self,None,style=wx.DEFAULT_FRAME_STYLE ^ wx.RESIZE_BORDER ^ wx.MAXIMIZE_BOX)
+        #wx.Frame.__init__(self,None,style=wx.DEFAULT_FRAME_STYLE ^ wx.RESIZE_BORDER ^ wx.MAXIMIZE_BOX)
+        wx.Frame.__init__(self,None)
         #self.SetDoubleBuffered(True)
         self.Bind(wx.EVT_CLOSE,self.on_exit)
         self.Bind(wx.EVT_CHAR_HOOK,self.on_key_down)
@@ -52,7 +53,7 @@ class AppScreen(wx.Frame):
             self.SetBackgroundColour(COLORS["White"])
             self.SetToolTip(wx.ToolTip('Configuration Screen'))
             self.SetTitle("VEX Display - Configure Display")
-            self.SetWindowStyle(wx.DEFAULT_FRAME_STYLE ^ wx.RESIZE_BORDER ^ wx.MAXIMIZE_BOX)
+            #self.SetWindowStyle(wx.DEFAULT_FRAME_STYLE ^ wx.RESIZE_BORDER ^ wx.MAXIMIZE_BOX)
             self.SetCursor(wx.StockCursor(wx.CURSOR_DEFAULT))
             self.ConfigPanel.Show()
             self.ConfigPanel.TxtbxWebServer.Enable(True)

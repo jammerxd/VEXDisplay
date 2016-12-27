@@ -14,24 +14,27 @@ class RankLogoPanel_Main(wx.Panel):
         self.SetSize((1300,274))
         self.imgFilePath = img
         self.wxImg = wx.Image(self.imgFilePath,wx.BITMAP_TYPE_PNG)
-        #self.img = wx.StaticBitmap(self,-1,wx.BitmapFromImage(self.wxImg))
-        #self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))
+        self.img = wx.StaticBitmap(self,-1,wx.BitmapFromImage(self.wxImg))
+        self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))
         #self.img.SetTransparent(255)
         #self.img2 = wx.StaticBitmap(self,-1,wx.EmptyBitmap(170,200,wx.BITMAP_SCREEN_DEPTH))
         #self.img2.SetPosition((0,0))
         #self.img2.SetTransparent(0)
-        self.Bind(wx.EVT_PAINT,self.on_paint)
-        self.fadeTimer = wx.Timer(self,-1)
-        self.Bind(wx.EVT_TIMER,self.doFade,self.fadeTimer)
+        #self.Bind(wx.EVT_PAINT,self.on_paint)
+        #self.fadeTimer = wx.Timer(self,-1)
+        #self.Bind(wx.EVT_TIMER,self.doFade,self.fadeTimer)
 
-        self.use2 = True
+        #self.use2 = True
 
-        self.img1Trans = 255
-        self.img2Trans = 0
+        #self.img1Trans = 255
+        #self.img2Trans = 0
         
         self.fadeDown = False
     def updateImg(self,img):
         self.imgFilePath = img
+        self.wxImg.LoadFile(self.imgFilePath,wx.BITMAP_TYPE_PNG)
+        self.img.SetBitmap(wx.BitmapFromImage(self.wxImg))
+        self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))
         self.fadeDown = True
         #if self.use2 == False:
         #    self.img2.SetBitmap(wx.BitmapFromImage(wx.Image(self.imgFilePath,wx.BITMAP_TYPE_PNG)))
@@ -39,7 +42,7 @@ class RankLogoPanel_Main(wx.Panel):
         #else:
         #    self.img.SetBitmap(wx.BitmapFromImage(wx.Image(self.imgFilePath,wx.BITMAP_TYPE_PNG)))
         #    self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))
-        self.fadeTimer.Start(25)
+        #self.fadeTimer.Start(25)
     def doFade(self,evt):
         #if self.use2 == True:
         #    ###FADE OUT 1 AND FADE 2 IN
