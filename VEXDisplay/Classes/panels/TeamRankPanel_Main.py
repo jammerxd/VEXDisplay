@@ -10,7 +10,7 @@ class TeamRankPanel_Main(wx.Panel):
         self.SetDoubleBuffered(True)
         self.SetBackgroundColour(COLORS["vexBGLightGray"])
         
-        self.SetSize((1300,90))
+        self.SetSize((1300,76))
         self.rank = rank
         if self.rank != None:
             self.lblRankNumber = wx.StaticText(self,-1)
@@ -35,5 +35,5 @@ class TeamRankPanel_Main(wx.Panel):
         if self.rank != None:
             d = True
         else:
-            d = False
+            d = True
     
