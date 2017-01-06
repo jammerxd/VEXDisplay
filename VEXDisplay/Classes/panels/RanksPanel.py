@@ -37,45 +37,45 @@ class RanksPanel(wx.Panel):
 
         self.lblRank = wx.StaticText(parent,-1)
         self.lblRank.SetForegroundColour(COLORS["White"])
-        self.lblRank.SetFont(FONTS["NotoSansBold_28"])
+        self.lblRank.SetFont(FONTS["NotoSansBold_22"])
         self.lblRank.SetLabel("Rank")
-        self.lblRank.SetPosition((10+((150-self.lblRank.GetSize()[0])/2),115))
+        self.lblRank.SetPosition((10+((150-self.lblRank.GetSize()[0])/2),125))
 
 
         self.lblTeam = wx.StaticText(parent,-1)
         self.lblTeam.SetForegroundColour(COLORS["White"])
-        self.lblTeam.SetFont(FONTS["NotoSansBold_28"])
+        self.lblTeam.SetFont(FONTS["NotoSansBold_22"])
         self.lblTeam.SetLabel("Team")
-        self.lblTeam.SetPosition((10+150,115))
+        self.lblTeam.SetPosition((10+150,125))
 
 
         self.lblWPs = wx.StaticText(parent,-1)
         self.lblWPs.SetForegroundColour(COLORS["White"])
-        self.lblWPs.SetFont(FONTS["NotoSansBold_28"])
+        self.lblWPs.SetFont(FONTS["NotoSansBold_22"])
         self.lblWPs.SetLabel("WP")
-        self.lblWPs.SetPosition((10+550+((150-self.lblWPs.GetSize()[0])/2),115))
+        self.lblWPs.SetPosition((10+550+((150-self.lblWPs.GetSize()[0])/2),125))
 
 
         
         self.lblAPs = wx.StaticText(parent,-1)
         self.lblAPs.SetForegroundColour(COLORS["White"])
-        self.lblAPs.SetFont(FONTS["NotoSansBold_28"])
+        self.lblAPs.SetFont(FONTS["NotoSansBold_22"])
         self.lblAPs.SetLabel("AP")
-        self.lblAPs.SetPosition((10+700+((150-self.lblAPs.GetSize()[0])/2),115)) 
+        self.lblAPs.SetPosition((10+700+((150-self.lblAPs.GetSize()[0])/2),125)) 
 
 
         self.lblSPs = wx.StaticText(parent,-1)
         self.lblSPs.SetForegroundColour(COLORS["White"])
-        self.lblSPs.SetFont(FONTS["NotoSansBold_28"])
+        self.lblSPs.SetFont(FONTS["NotoSansBold_22"])
         self.lblSPs.SetLabel("SP")
-        self.lblSPs.SetPosition((10+850+((150-self.lblSPs.GetSize()[0])/2),115)) 
+        self.lblSPs.SetPosition((10+850+((150-self.lblSPs.GetSize()[0])/2),125)) 
 
 
         self.lblWLT = wx.StaticText(parent,-1)
         self.lblWLT.SetForegroundColour(COLORS["White"])
-        self.lblWLT.SetFont(FONTS["NotoSansBold_28"])
+        self.lblWLT.SetFont(FONTS["NotoSansBold_22"])
         self.lblWLT.SetLabel("W-L-T")
-        self.lblWLT.SetPosition((10+1000+((200-self.lblWLT.GetSize()[0])/2),115)) 
+        self.lblWLT.SetPosition((10+1000+((200-self.lblWLT.GetSize()[0])/2),125)) 
 
 
         self.setupRankPanels(speed=speed)
