@@ -42,14 +42,17 @@ class MainScreen(wx.Panel):
             self.Font_NotoSans_22_Normal = wx.Font(22,wx.DEFAULT,wx.NORMAL,wx.NORMAL,faceName="Noto Sans")
             self.Font_NotoSans_22_Bold = wx.Font(22,wx.DEFAULT,wx.NORMAL,wx.BOLD,faceName="Noto Sans")
 
-            self.Font_NotoSans_55_Normal = wx.Font(55,wx.DEFAULT,wx.NORMAL,wx.NORMAL,faceName="Noto Sans")
-            self.Font_NotoSans_55_Bold = wx.Font(55,wx.DEFAULT,wx.NORMAL,wx.BOLD,faceName="Noto Sans")
+            self.Font_NotoSans_28_Bold = wx.Font(28,wx.DEFAULT,wx.NORMAL,wx.BOLD,faceName="Noto Sans")
+
+            self.Font_NotoSans_55_Normal = wx.Font(36,wx.DEFAULT,wx.NORMAL,wx.NORMAL,faceName="Noto Sans")
+            self.Font_NotoSans_55_Bold = wx.Font(36,wx.DEFAULT,wx.NORMAL,wx.BOLD,faceName="Noto Sans")
         else:
             self.Font_NotoSans_22_Normal = wx.Font(22,wx.DEFAULT,wx.NORMAL,wx.NORMAL,faceName="NotoSans")
             self.Font_NotoSans_22_Bold = wx.Font(22,wx.DEFAULT,wx.NORMAL,wx.BOLD,faceName="NotoSans")
 
-            self.Font_NotoSans_55_Normal = wx.Font(55,wx.DEFAULT,wx.NORMAL,wx.NORMAL,faceName="NotoSans")
-            self.Font_NotoSans_55_Bold = wx.Font(55,wx.DEFAULT,wx.NORMAL,wx.BOLD,faceName="NotoSans")
+            self.Font_NotoSans_55_Normal = wx.Font(36,wx.DEFAULT,wx.NORMAL,wx.NORMAL,faceName="NotoSans")
+            self.Font_NotoSans_55_Bold = wx.Font(36,wx.DEFAULT,wx.NORMAL,wx.BOLD,faceName="NotoSans")
+            self.Font_NotoSans_28_Bold = wx.Font(28,wx.DEFAULT,wx.NORMAL,wx.BOLD,faceName="NotoSans")
         
         self.mainPanelHeader = Header(self,-1,"Qualification Rankings",self.Font_NotoSans_55_Bold,COLORS["White"])
         self.mainPanelHeader.SetSize((830,150))
@@ -88,16 +91,18 @@ class MainScreen(wx.Panel):
         if self.mainPanelType == "Rankings":
             self.mainPanel = RanksPanel(self,speed=self.scrollSpeed)
             self.mainPanelHeader.SetLabel("Qualification Rankings")
-            self.mainPanelHeader.SetSize((1200,self.mainPanelHeader.GetSize()[1]))
-            self.mainPanel.SetSize((1300,900))
-            self.mainPanel.SetPosition((25,160))
+            self.mainPanelHeader.SetSize((1100,self.mainPanelHeader.GetSize()[1]))
+            self.mainPanel.SetSize((1200,900))
+            self.mainPanel.SetPosition((10,160))
             self.mainPanel.SetBackgroundColour(COLORS["vexBlue"])
     
     def setupSecondPanel(self):
         if self.secondPanelType == "Matches":
-            self.secondPanelHeader = Header(self,-1,"Match Schedule and Results",self.Font_NotoSans_22_Bold,COLORS["White"])
-            self.secondPanelHeader.SetPosition((1350+(545-self.secondPanelHeader.GetSize()[0])/2,212))
+            self.secondPanelHeader = Header(self,-1,"Match Schedule and Results",self.Font_NotoSans_28_Bold,COLORS["White"])
+            self.secondPanelHeader.SetPosition((1225+(685-self.secondPanelHeader.GetSize()[0])/2,205))
             self.secondPanel = MatchesPanel(self)
+            self.secondPanel.SetPosition((1225,252))
+            self.secondPanel.SetSize((685,808))
             self.secondPanel.SetBackgroundColour(COLORS["White"])
             self.secondPanel.Refresh()
             if not self.secondPanel.IsShown():

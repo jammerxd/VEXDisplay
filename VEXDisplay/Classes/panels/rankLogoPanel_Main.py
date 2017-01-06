@@ -5,59 +5,70 @@ sys.path.append("..")
 from ..EventData import *
 from ..drawables.fonts import *
 from ..Colors import *
- 
+if os.name == 'posix':
+    from PIL import Image
+else:
+    import Image
+def BitmapFromFile( imgFilename ) :
+    """ The following PIL image conversion must first go to a wx.Image.
+    The wx.Image is always finally converted to a wx.Bitmap regardless of whether or not
+    there is any image transparency information to be handled.
+    This is because only a wxBitmap can be directly displayed - a wxImage can't !
+
+    The module Win32IconImagePlugin.py must be imported to get PIL to properly read
+    paletted images with a mask (binary valued transparency). All .ICO and some .PNG files
+    may have paletted image data with mask transparency. See:
+
+    Win32IconImagePlugin - Alternate PIL plugin for dealing with Microsoft .ico files.
+    http://code.google.com/p/casadebender/wiki/Win32IconImagePlugin
+    """
+    pilImg = Image.open( imgFilename )
+
+    # The following is equivalent to "wxImg = wx.EmptyImage( pilImg.size[0], pilImg.size[1] )".
+    wxImg = wx.EmptyImage( *pilImg.size )   # Always created with no transparency plane.
+
+    # Determine if the image file has any inherent transparency.
+    pilMode = pilImg.mode     # Will usually be either "RGB" or "RGBA", but may be others.
+    pilHasAlpha = pilImg.mode[-1] == 'A'
+    if pilHasAlpha :
+
+        # First extract just the RGB data from the data string and insert it into wx.Image .
+        pilRgbStr = pilImg.convert( 'RGB').tostring()
+        wxImg.SetData( pilRgbStr )
+
+        # To convert to a wx.Image with alpha the pilImg mode needs to be "RGBA".
+        # So, add an alpha layer even if the original file image doesn't have any transparency info.
+        # If the file image doesn't have any transparency, the resulting wx.Image (and, finally, the wx.Bitmap)
+        # will be 100% opaque just like the file image.
+        pilImgStr = pilImg.convert( 'RGBA' ).tostring()    # Harmless if original image mode is already "RGBA".
+
+        # Now, extract just the alpha data and insert it.
+        pilAlphaStr = pilImgStr[3::4]    # start at byte index 3 with a stride (byte skip) of 4.
+        wxImg.SetAlphaData( pilAlphaStr )
+
+    #end if
+
+    wxBmap = wxImg.ConvertToBitmap()     # Equivalent result:   wxBmap = wx.BitmapFromImage( wxImg )
+    return wxBmap
+
 
 class RankLogoPanel_Main(wx.Panel):
     def __init__(self,parent=None,img=None):
         wx.Panel.__init__(self,parent)
-        self.SetDoubleBuffered(True)
-        self.SetSize((1300,274))
+        #self.SetDoubleBuffered(True)
+        self.SetSize((1200,274))
         self.imgFilePath = img
-        self.wxImg = wx.Image(self.imgFilePath,wx.BITMAP_TYPE_PNG)
-        self.img = wx.StaticBitmap(self,-1,wx.BitmapFromImage(self.wxImg))
-        self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))
-        #self.Bind(wx.EVT_PAINT,self.on_paint)
-        #self.fadeTimer = wx.Timer(self,-1)
-        #self.Bind(wx.EVT_TIMER,self.doFade,self.fadeTimer)
-
-        self.use2 = True
-
-        self.img1Trans = 255
-        self.img2Trans = 0
-        
-        self.fadeDown = False
+        self.img = wx.StaticBitmap(self,-1,BitmapFromFile(self.imgFilePath))
+        self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2)) 
+        #print str(self.img.GetSize()) + str(self.img.GetPosition()) 
+        #self.img.Hide()
     def updateImg(self,img):
         self.imgFilePath = img
-        self.wxImg.LoadFile(self.imgFilePath,wx.BITMAP_TYPE_PNG)
-        self.img.SetBitmap(wx.BitmapFromImage(self.wxImg))
+        self.img.SetBitmap(BitmapFromFile(self.imgFilePath))
         self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))
-        #self.fadeDown = True
-        #self.fadeTimer.Start(25)
-    def doFade(self,evt):
-        if self.img1Trans != 0 and self.fadeDown == True:
-            self.img1Trans -= 5
-            #self.wxImg = self.wxImg.AdjustChannels(1.0,1.0,1.0,self.img1Trans/255.0)
-            #self.img.SetBitmap(wx.BitmapFromImage(self.wxImg))
-        elif self.img1Trans == 0:
-            self.wxImg.LoadFile(self.imgFilePath,wx.BITMAP_TYPE_PNG)
-            #self.img.SetBitmap(wx.BitmapFromImage(wx.Image(self.imgFilePath,wx.BITMAP_TYPE_PNG)))
-            #self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))   
-
-            self.img1Trans += 5
-            #self.wxImg = self.wxImg.AdjustChannels(1.0,1.0,1.0,self.img1Trans/255.0)
-            #self.img.SetBitmap(wx.BitmapFromImage(self.wxImg))
-            self.fadeDown = False
-        elif self.img1Trans != 255 and self.fadeDown == False:
-            self.img1Trans += 5
-            #self.wxImg = self.wxImg.AdjustChannels(1.0,1.0,1.0,self.img1Trans/255.0)
-            #self.img.SetBitmap(wx.BitmapFromImage(self.wxImg))
-        elif self.img1Trans == 255 and self.fadeDown == False:
-            self.fadeTimer.Stop()
-        #print self.img1Trans/255.0
-        #self.img.Refresh()
+        #print str(self.img.GetSize()) + str(self.img.GetPosition()) 
+        #self.img.Hide()
         self.Refresh()
-        
-        evt.Skip()   
     def on_paint(self,evt):
         dc = wx.PaintDC(self)
         dc = wx.BufferedDC(dc)

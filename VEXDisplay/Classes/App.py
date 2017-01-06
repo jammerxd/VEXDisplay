@@ -39,8 +39,8 @@ class App(object):
                 ranksRaw = jsonObj
                 for i in range(len(jsonObj)):
                     rankStr = str(i+1)
-                    if rankStr not in EVENT_DATA.ranks:
-                        EVENT_DATA.ranks[rankStr] = ranksRaw[rankStr]
+                    
+                    EVENT_DATA.ranks[rankStr] = ranksRaw[rankStr]
                     if ranksRaw[rankStr] in EVENT_DATA.teams:
                         EVENT_DATA.teams[ranksRaw[rankStr]].setRank(rankStr)
                 for i in range(len(EVENT_DATA.ranks)):
@@ -129,6 +129,9 @@ class App(object):
             for i in range(0,8):
                 if i < len(jsonObj["show"]):
                     EVENT_DATA.showMatches[i] = jsonObj["show"][i]
+                else:
+                    if i in EVENT_DATA.showMatches:
+                        del EVENT_DATA.showMatches[i]
         except Exception,ex:
             doNothing = True
     def getSkills(self):
