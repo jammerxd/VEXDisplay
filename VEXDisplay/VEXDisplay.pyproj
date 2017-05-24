@@ -49,6 +49,9 @@
     <Compile Include="Classes\drawables\header.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\panels\MatchPanel_Strip_Main.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classes\panels\rankLogoPanel_Main.py">
       <SubType>Code</SubType>
     </Compile>

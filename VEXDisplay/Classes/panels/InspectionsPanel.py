@@ -76,7 +76,7 @@ class InspectionsPanel(wx.Panel):
                 if (EVENT_DATA.teams[team].getInspectionStatus() == "Not Started"):
                     self.teamLblHandler[team].lblTeamNumber.SetForegroundColour(COLORS["vexRed"])
                     self.teamLblHandler[team].lblTeamNumber.SetFont(self.NotoSansRegular)
-                elif (EVENT_DATA.teams[team].getInspectionStatus() == "Partial"):
+                elif (EVENT_DATA.teams[team].getInspectionStatus() == "Partially Completed"):
                     self.teamLblHandler[team].lblTeamNumber.SetForegroundColour(COLORS["vexInspectionPartialTxt"])
                     self.teamLblHandler[team].lblTeamNumber.SetFont(self.NotoSansRegularIU)
                 elif (EVENT_DATA.teams[team].getInspectionStatus() == "Completed"):
@@ -134,7 +134,7 @@ class InspectionsPanel(wx.Panel):
                 if (EVENT_DATA.teams[team].getInspectionStatus() == "Not Started"):
                     self.teamLblHandler[team].lblTeamNumber.SetForegroundColour(COLORS["vexRed"])
                     self.teamLblHandler[team].lblTeamNumber.SetFont(self.NotoSansRegular)
-                elif (EVENT_DATA.teams[team].getInspectionStatus() == "Partial"):
+                elif (EVENT_DATA.teams[team].getInspectionStatus() == "Partially Completed"):
                     self.teamLblHandler[team].lblTeamNumber.SetForegroundColour(COLORS["vexInspectionPartialTxt"])
                     self.teamLblHandler[team].lblTeamNumber.SetFont(self.NotoSansRegularIU)
                 elif (EVENT_DATA.teams[team].getInspectionStatus() == "Completed"):

@@ -8,9 +8,7 @@ from ..Colors import *
 if os.name == 'posix':
     from PIL import Image
 else:
-   import Image
-
-
+    import Image
 def BitmapFromFile( imgFilename ) :
     """ The following PIL image conversion must first go to a wx.Image.
     The wx.Image is always finally converted to a wx.Bitmap regardless of whether or not
@@ -47,29 +45,48 @@ def BitmapFromFile( imgFilename ) :
         # Now, extract just the alpha data and insert it.
         pilAlphaStr = pilImgStr[3::4]    # start at byte index 3 with a stride (byte skip) of 4.
         wxImg.SetAlphaData( pilAlphaStr )
-
+    else:
+        wxImg = wx.EmptyImage(*pilImg.size)
+        new_image = pilImg.convert('RGB')
+        data = new_image.tostring()
+        wxImg.SetData(data)
     #end if
 
     wxBmap = wxImg.ConvertToBitmap()     # Equivalent result:   wxBmap = wx.BitmapFromImage( wxImg )
     return wxBmap
-
+def newBitmapConversion(imgFileName):
+    pilImage = Image.open(imgFileName)
+    if alpha:
+        image = apply( wx.EmptyImage, pil.size )
+        image.SetData( pil.convert( "RGB").tostring() )
+        image.SetAlphaData(pil.convert("RGBA").tostring()[3::4])
+    else:
+        image = wx.EmptyImage(pil.size[0], pil.size[1])
+        new_image = pil.convert('RGB')
+        data = new_image.tostring()
+        image.SetData(data)
+    return image
 
 class RankLogoPanel_Main(wx.Panel):
     def __init__(self,parent=None,img=None):
         wx.Panel.__init__(self,parent)
         #self.SetDoubleBuffered(True)
-        self.SetSize((1200,274))
+        self.SetSize((1200,450))
         self.imgFilePath = img
-        self.img = wx.StaticBitmap(self,-1,BitmapFromFile(self.imgFilePath))
+        #self.img = wx.StaticBitmap(self,-1,BitmapFromFile(self.imgFilePath))
+        self.img = wx.StaticBitmap(self,-1,wx.Bitmap(self.imgFilePath, wx.BITMAP_TYPE_ANY))
         self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2)) 
         #print str(self.img.GetSize()) + str(self.img.GetPosition()) 
         #self.img.Hide()
+        #print self.imgFilePath
     def updateImg(self,img):
         self.imgFilePath = img
-        self.img.SetBitmap(BitmapFromFile(self.imgFilePath))
+        #self.img.SetBitmap(BitmapFromFile(self.imgFilePath))
+        self.img.SetBitmap(wx.Bitmap(self.imgFilePath, wx.BITMAP_TYPE_ANY))
         self.img.SetPosition(((self.GetSize()[0]-self.img.GetSize()[0])/2,(self.GetSize()[1]-self.img.GetSize()[1])/2))
         #print str(self.img.GetSize()) + str(self.img.GetPosition()) 
         #self.img.Hide()
+        #print self.imgFilePath
         self.Refresh()
     def on_paint(self,evt):
         dc = wx.PaintDC(self)

@@ -125,14 +125,14 @@ class MainScreen(wx.Panel):
     def checkInspectionData(self,evt):
         switchMain = True
         if self.mainPanel != None and self.showInspections:
-            
-            for team in EVENT_DATA.teams:
-                for match in EVENT_DATA.matches:
-                    if team == EVENT_DATA.matches[match].getRed1() or team == EVENT_DATA.matches[match].getRed2() or team == EVENT_DATA.matches[match].getRed3() or team == EVENT_DATA.matches[match].getBlue1() or  team == EVENT_DATA.matches[match].getBlue2() or team == EVENT_DATA.matches[match].getBlue3():
-                        EVENT_DATA.teams[team].setIsCompeting(True)
-                
-                if EVENT_DATA.teams[team].getIsCompeting() != True or EVENT_DATA.teams[team].getInspectionStatus() != "Completed":
-                    switchMain = False                 
+            if len(EVENT_DATA.matches) > 0:
+                for team in EVENT_DATA.teams:
+                    for match in EVENT_DATA.matches:
+                        if team == EVENT_DATA.matches[match].getRed1() or team == EVENT_DATA.matches[match].getRed2() or team == EVENT_DATA.matches[match].getRed3() or team == EVENT_DATA.matches[match].getBlue1() or  team == EVENT_DATA.matches[match].getBlue2() or team == EVENT_DATA.matches[match].getBlue3():
+                            EVENT_DATA.teams[team].setIsCompeting(True)
+                    if EVENT_DATA.teams[team].getIsCompeting() != True or EVENT_DATA.teams[team].getInspectionStatus() != "Completed":
+                        switchMain = False
+                    
         if switchMain:
             self.mainPanel.Hide()
             self.mainPanel.DestroyChildren()
