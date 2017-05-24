@@ -76,7 +76,7 @@ class AppScreen(wx.Frame):
         self.ConfigPanel.BtnGo.Disable()
         self.app.settings.setServerAddress(self.ConfigPanel.TxtbxWebServer.GetValue())
         self.app.settings.setDivision(self.ConfigPanel.CmbxDivision.GetValue().split(" ")[1])
-        self.app.settings.setDivisionStr("division"+self.app.settings.getDivision())
+        self.app.settings.setDivisionStr("divisions/"+self.app.settings.getDivision())
         self.app.settings.setDataUpdateFreq(self.ConfigPanel.dataRefreshRate.GetValue())
         self.app.settings.setMainDisplay(self.ConfigPanel.CmbxMainDisplay.GetValue())
         self.app.settings.setSecondDisplay(self.ConfigPanel.CmbxSecondDisplay.GetValue())

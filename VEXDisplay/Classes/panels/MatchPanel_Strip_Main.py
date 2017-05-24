@@ -128,10 +128,10 @@ class MatchPanel_Strip_Main(wx.Panel):
             self.lblMatchTime.SetLabel(EVENT_DATA.matches[self.matchNum].getScheduledTime())
             self.lblMatchTime.SetPosition((STRIP_PADDING_OFFSET+MATCHNUM_COL_W+RED_TEAM_COL_W+BLUE_TEAM_COL_W+((MATCH_TIME_COL_W-self.lblMatchTime.GetSize()[0])/2),self.GetSize()[1]-self.lblMatchTime.GetSize()[1]-5))
             
-            self.lblRedScore.SetLabel(EVENT_DATA.matches[self.matchNum].getRedScore())
+            self.lblRedScore.SetLabel(str(EVENT_DATA.matches[self.matchNum].getRedScore()))
             self.lblRedScore.SetPosition((STRIP_PADDING_OFFSET+MATCHNUM_COL_W+RED_TEAM_COL_W+BLUE_TEAM_COL_W+((RED_TEAM_SCORE_COL_W-self.lblRedScore.GetSize()[0])/2),5))
 
-            self.lblBlueScore.SetLabel(EVENT_DATA.matches[self.matchNum].getBlueScore())
+            self.lblBlueScore.SetLabel(str(EVENT_DATA.matches[self.matchNum].getBlueScore()))
             self.lblBlueScore.SetPosition((STRIP_PADDING_OFFSET+MATCHNUM_COL_W+RED_TEAM_COL_W+BLUE_TEAM_COL_W+((BLUE_TEAM_SCORE_COL_W-self.lblBlueScore.GetSize()[0])/2),self.GetSize()[1]-self.lblBlueScore.GetSize()[1]-5))
             if not self.IsShown:
                 self.Show()

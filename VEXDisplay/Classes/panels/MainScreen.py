@@ -69,7 +69,7 @@ class MainScreen(wx.Panel):
             self.secondPanel = None
             self.mainPanel = InspectionsPanel(self)
             self.mainPanelHeader.SetFont(self.Font_NotoSans_55_Bold)
-            self.mainPanelHeader.SetLabel("Inspection")
+            self.mainPanelHeader.SetLabel(EVENT_DATA.getDivisionName() + " Inspections")
             self.mainPanelHeader.SetPosition((250,12))
             self.SetBackgroundColour(COLORS["vexTxtDarkGray"])
             if self.inspectionsToMatchTimer != None:
@@ -123,19 +123,24 @@ class MainScreen(wx.Panel):
             if not self.secondPanel.IsShown():
                 self.secondPanel.Show()
     def checkInspectionData(self,evt):
-        switchMain = False
+        switchMain = True
         if self.mainPanel != None and self.showInspections:
             if len(EVENT_DATA.matches) > 0:
-            #if EVENT_DATA.inspections_t == EVENT_DATA.inspections_c:
-                self.mainPanel.Hide()
-                self.mainPanel.DestroyChildren()
-                self.mainPanel.Destroy()
-                if self.secondPanel != None:
-                    self.secondPanel.Hide()
-                    self.secondPanel.DestroyChildren()
-                    self.secondPanel.Destroy()
-                switchMain = True
+                for team in EVENT_DATA.teams:
+                    for match in EVENT_DATA.matches:
+                        if team == EVENT_DATA.matches[match].getRed1() or team == EVENT_DATA.matches[match].getRed2() or team == EVENT_DATA.matches[match].getRed3() or team == EVENT_DATA.matches[match].getBlue1() or  team == EVENT_DATA.matches[match].getBlue2() or team == EVENT_DATA.matches[match].getBlue3():
+                            EVENT_DATA.teams[team].setIsCompeting(True)
+                    if EVENT_DATA.teams[team].getIsCompeting() != True or EVENT_DATA.teams[team].getInspectionStatus() != "Completed":
+                        switchMain = False
+                    
         if switchMain:
+            self.mainPanel.Hide()
+            self.mainPanel.DestroyChildren()
+            self.mainPanel.Destroy()
+            if self.secondPanel != None:
+                self.secondPanel.Hide()
+                self.secondPanel.DestroyChildren()
+                self.secondPanel.Destroy()
             if self.inspectionsToMatchTimer != None:
                 self.inspectionsToMatchTimer.Stop()
             self.setupMainPanel()

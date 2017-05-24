@@ -77,19 +77,19 @@ class TeamRankPanel_Main(wx.Panel):
                 self.lblRankNumber.SetLabel(str(rank))
                 self.lblRankNumber.SetPosition((((RANK_NUMBER_COL_W-self.lblRankNumber.GetSize()[0])/2),(self.GetSize()[1]-self.lblRankNumber.GetSize()[1])/2))
                 
-                self.lblTeamNumber.SetLabel(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getNumber())
+                self.lblTeamNumber.SetLabel(EVENT_DATA.ranks[rank]["teamNumber"])
                 self.lblTeamNumber.SetPosition((RANK_NUMBER_COL_W,0))
 
-                self.lblTeamName.SetLabel(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getName())
+                self.lblTeamName.SetLabel(EVENT_DATA.ranks[rank]["teamName"])
                 self.lblTeamName.SetPosition((RANK_NUMBER_COL_W,self.GetSize()[1]-self.lblTeamName.GetSize()[1]))
             
-                self.lblWPs.SetLabel(str(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getWPS()))
+                self.lblWPs.SetLabel(str(EVENT_DATA.ranks[rank]["wps"]))
                 self.lblWPs.SetPosition(((RANK_NUMBER_COL_W+RANK_TEAM_NUMBER_COL_W)+((RANK_TEAM_WP_COL_W-self.lblWPs.GetSize()[0])/2),(self.GetSize()[1]-self.lblWPs.GetSize()[1])/2))
 
-                self.lblAPs.SetLabel(str(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getAPS()))
+                self.lblAPs.SetLabel(str(EVENT_DATA.ranks[rank]["aps"]))
                 self.lblAPs.SetPosition(((RANK_NUMBER_COL_W+RANK_TEAM_NUMBER_COL_W+RANK_TEAM_WP_COL_W)+((RANK_TEAM_AP_COL_W-self.lblAPs.GetSize()[0])/2),(self.GetSize()[1]-self.lblAPs.GetSize()[1])/2))
 
-                self.lblSPs.SetLabel(str(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getSPS()))
+                self.lblSPs.SetLabel(str(EVENT_DATA.ranks[rank]["sps"]))
                 self.lblSPs.SetPosition(((RANK_NUMBER_COL_W+RANK_TEAM_NUMBER_COL_W+RANK_TEAM_WP_COL_W+RANK_TEAM_AP_COL_W)+((RANK_TEAM_SP_COL_W-self.lblSPs.GetSize()[0])/2),(self.GetSize()[1]-self.lblSPs.GetSize()[1])/2))
 
                 #self.lblWins.SetLabel(str(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getWins()))
@@ -106,7 +106,7 @@ class TeamRankPanel_Main(wx.Panel):
                 #self.lblLossesD.SetLabel("-")
                 #self.lblLossesD.SetPosition((RANK_NUMBER_COL_W+RANK_TEAM_NUMBER_COL_W+RANK_TEAM_WP_COL_W+RANK_TEAM_AP_COL_W+RANK_TEAM_SP_COL_W+RANK_TEAM_WINS_COL_W+self.lblWinsD.GetSize()[0]+RANK_TEAM_LOSSES_COL_W,(self.GetSize()[1]-self.lblLossesD.GetSize()[1])/2))
                 
-                self.lblScores.SetLabel(str(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getWins()) + "-" + str(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getLosses()) + "-" + str(EVENT_DATA.teams[EVENT_DATA.ranks[rank]].getTies()))
+                self.lblScores.SetLabel(str(EVENT_DATA.ranks[rank]["wins"]) + "-" + str(EVENT_DATA.ranks[rank]["losses"]) + "-" + str(EVENT_DATA.ranks[rank]["ties"]))
                 #self.lblScores.SetLabel("99-99-99")
                 #self.lblScores.SetLabel(str(randint(0,99))+"-"+str(randint(0,1000))+"-"+str(randint(0,9)))
                 x = RANK_NUMBER_COL_W+RANK_TEAM_NUMBER_COL_W+RANK_TEAM_WP_COL_W+RANK_TEAM_AP_COL_W+RANK_TEAM_SP_COL_W + (((self.GetSize()[0]-(RANK_NUMBER_COL_W+RANK_TEAM_NUMBER_COL_W+RANK_TEAM_WP_COL_W+RANK_TEAM_AP_COL_W+RANK_TEAM_SP_COL_W))-self.lblScores.GetSize()[0])/2)
