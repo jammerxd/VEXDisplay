@@ -21,7 +21,11 @@ class Team(object):
         self.checkedIn = False
         self.inspectionStatus = "Not Started"
 
-        
+        self.isCompeting = False
+    def getIsCompeting(self):
+        return self.isCompeting
+    def setIsCompeting(self,val):
+        self.isCompeting = val
     def getCheckedIn(self):
         return self.checkedIn
     def setCheckedIn(self,val):

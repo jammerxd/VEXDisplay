@@ -116,7 +116,7 @@ class ConfigureDisplay(wx.Panel):
         self.scrollSpeed = wx.SpinCtrl(self, -1, '',  (self.settings_lbl_ScrollSpeed.GetPosition()[0]+self.settings_lbl_ScrollSpeed.GetSize()[0]+5, 321), (80, -1))
         self.scrollSpeed.SetFont(self.NotoSansRegular)
         self.scrollSpeed.SetRange(1,999)
-        self.scrollSpeed.SetValue(270)
+        self.scrollSpeed.SetValue(32)
         self.scrollSpeed.SetSize((self.scrollSpeed.GetSize()[0],self.scrollSpeed.GetSize()[1]+5))
  
 
